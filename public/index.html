@@ -1,0 +1,105 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Milk Being Poured Into Iced Coffee</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+    <style>     
+     body {
+            cursor: pointer;
+     }
+     video#milk-being-poured-video {
+      position: fixed; right: 0; bottom: 0;
+      min-width: 100%; min-height: 100%;
+      width: auto; height: auto; z-index: -100;
+      background: url() no-repeat;
+      background-size: cover;
+    }
+    </style>
+  </head>
+  <body>
+
+    <div class="flex-video">
+    <video autoplay poster="" id="milk-being-poured-video">
+     <source id="mbp-webm" src="videos/Shot01_CC_small.webm" type="video/webm">
+     <source id="mbp-mp4" src="videos/Shot01_CC_small.mp4" type="video/mp4">
+    </video>
+    </div>
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+
+      var videos = ['videos/Shot01_CC_small','videos/Shot02_CC_small'];
+
+      var vid = document.getElementById("milk-being-poured-video");
+
+      function VideoLooper(slides) {
+
+          var counter = 0;
+
+          this.prev = function () {
+              counter -= 1;
+              transition();
+          };
+
+          this.next = function () {
+              counter += 1;
+              transition();
+          };
+
+          var transition = function () {
+              var index = mod(counter, slides.length);
+              var slide = slides[index];
+              $('#mbp-webm').attr('src',slide+'.webm');
+              $('#mbp-mp4').attr('src',slide+'.mp4');        
+              vid.load();
+              vid.play();
+          };
+
+          var mod = function (num, mod) {
+              var remain = num % mod;
+              return Math.floor(remain >= 0 ? remain : remain + mod);
+          };
+      };
+
+      var displayer = new VideoLooper(videos);      
+
+      vid.addEventListener('ended', function() {
+        displayer.next();
+      });
+
+      $('body').click(function() {
+        displayer.next();      
+      });
+
+      $(document).keydown(function(e){
+       if (e.keyCode == 39) { 
+        displayer.next();      
+       }
+       if (e.keyCode == 37) {
+        displayer.prev();
+       }
+     });
+    </script>
+    <!-- 
+
+
+                   o8o  oooo  oooo            .o8                  o8o                                                                                      .o8      o8o                  .                 o8o                            .o8                          .o88o.  .o88o.                     
+                   `"'  `888  `888           "888                  `"'                                                                                     "888      `"'                .o8                 `"'                           "888                          888 `"  888 `"                     
+ooo. .oo.  .oo.   oooo   888   888  oooo      888oooo.   .ooooo.  oooo  ooo. .oo.    .oooooooo    oo.ooooo.   .ooooo.  oooo  oooo  oooo d8b  .ooooo.   .oooo888     oooo  ooo. .oo.   .o888oo  .ooooo.     oooo   .ooooo.   .ooooo.   .oooo888      .ooooo.   .ooooo.  o888oo  o888oo   .ooooo.   .ooooo.  
+`888P"Y88bP"Y88b  `888   888   888 .8P'       d88' `88b d88' `88b `888  `888P"Y88b  888' `88b      888' `88b d88' `88b `888  `888  `888""8P d88' `88b d88' `888     `888  `888P"Y88b    888   d88' `88b    `888  d88' `"Y8 d88' `88b d88' `888     d88' `"Y8 d88' `88b  888     888    d88' `88b d88' `88b 
+ 888   888   888   888   888   888888.        888   888 888ooo888  888   888   888  888   888      888   888 888   888  888   888   888     888ooo888 888   888      888   888   888    888   888   888     888  888       888ooo888 888   888     888       888   888  888     888    888ooo888 888ooo888 
+ 888   888   888   888   888   888 `88b.      888   888 888    .o  888   888   888  `88bod8P'      888   888 888   888  888   888   888     888    .o 888   888      888   888   888    888 . 888   888     888  888   .o8 888    .o 888   888     888   .o8 888   888  888     888    888    .o 888    .o 
+o888o o888o o888o o888o o888o o888o o888o     `Y8bod8P' `Y8bod8P' o888o o888o o888o `8oooooo.      888bod8P' `Y8bod8P'  `V88V"V8P' d888b    `Y8bod8P' `Y8bod88P"    o888o o888o o888o   "888" `Y8bod8P'    o888o `Y8bod8P' `Y8bod8P' `Y8bod88P"    `Y8bod8P' `Y8bod8P' o888o   o888o   `Y8bod8P' `Y8bod8P' 
+                                                                                    d"     YD      888                                                                                                                                                                                                     
+                                                                                    "Y88888P'     o888o                                                                                                                                                                                                    
+concept: @gaffffffffff
+code: @mankins
+
+    -->
+  </body>
+</html>
